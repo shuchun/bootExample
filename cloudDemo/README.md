@@ -18,4 +18,5 @@
 断路监控：http://localhost:8989/hystrix.stream    
 项目启动顺序：discovery,config,person,some,ui,monitor    
 技术：spring-boot、spring-cloud、Eureka、Ribbon、Feign、Zuul、Circuit、hibernate、jpa、angular、bootstrap    
+
 ----  
