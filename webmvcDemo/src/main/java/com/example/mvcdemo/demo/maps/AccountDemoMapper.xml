@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mvcdemo.demo.dao.AccountDemoDao">
+	<select id="getAccountList" parameterType="Map" resultType="com.example.mvcdemo.demo.pageModel.AccountPageModel">
+		select pa.id             id,
+		       pa.name			 name,
+		       pa.pro_id         proId,
+		       pa.create_time    createTime,
+		       pa.balance        balance,
+		       pa.account_frozen accountFrozen,
+		       pa.frozen_money frozenMoney,
+		       pa.available_balance availableBalance
+		  from pay_account pa
+		  <where>
+		  	1=1
+		  	<if test="id != '' and id != null">
+		  		and pa.id = #{id}
+		  	</if>
+		  	<if test="proId != null and proId != ''">
+		  		and pa.pro_id = #{proId}
+		  	</if>
+		  </where>
+	</select>
+</mapper>
