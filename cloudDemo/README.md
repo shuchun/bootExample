@@ -2,6 +2,7 @@
 
 ----
 模块说明：
+
   模块名称   |     说明      |  技术
   ---------- |  ------------ |  ----------
   discovery  |    服务注册   |  Eureka Server
@@ -10,6 +11,7 @@
   some       |    模拟其他服务 | DiscoveryClient
   ui         |    对外网关   |  Ribbon,Feign,CircuitBreaker,gangular,bootstrap
   monitor    |    断路器监控 |  hystrix
+  
 ----
 首页：http://localhost    
 添加：http://localhost/#/person    
