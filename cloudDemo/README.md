@@ -13,9 +13,9 @@
 ----
 首页：http://localhost    
 添加：http://localhost/#/person    
-其它：http://localhost/#/some
-注册中心：http://localhost:8761
-断路监控：http://localhost:8989/hystrix.stream
+其它：http://localhost/#/some    
+注册中心：http://localhost:8761    
+断路监控：http://localhost:8989/hystrix.stream    
 项目启动顺序：discovery,config,person,some,ui,monitor    
-技术：spring-boot、spring-cloud、Eureka、Ribbon、Feign、Zuul、Circuit、hibernate、jpa、angular、bootstrap
+技术：spring-boot、spring-cloud、Eureka、Ribbon、Feign、Zuul、Circuit、hibernate、jpa、angular、bootstrap    
 ----  
