@@ -1,4 +1,4 @@
-package com.lesaas.slardar.demo.service;
+package com.example.mvcdemo.demo.service;
 
 import org.hamcrest.Matchers;
 import org.junit.After;
