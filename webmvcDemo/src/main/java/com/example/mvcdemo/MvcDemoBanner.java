@@ -12,9 +12,9 @@ import org.springframework.core.env.Environment;
  * @author ysc
  *
  */
-public class SlardarBanner implements Banner {
+public class MvcDemoBanner implements Banner {
 	
-	private static final Logger logger = LoggerFactory.getLogger(SlardarBanner.class);
+	private static final Logger logger = LoggerFactory.getLogger(MvcDemoBanner.class);
 
 
 	@Override

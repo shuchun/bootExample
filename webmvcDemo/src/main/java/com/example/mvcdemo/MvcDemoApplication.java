@@ -57,7 +57,7 @@ public class MvcDemoApplication extends SpringBootServletInitializer	{
 	public static void main(String[] args) {
 		//SpringApplication.run(PhoenixQuickStart.class, args);
 		 SpringApplication app = new SpringApplication(MvcDemoApplication.class);
-		 app.setBanner(new SlardarBanner());
+		 app.setBanner(new MvcDemoBanner());
 		 app.run(args);
 		System.out.println("Server at http://localhost:8091/mvcdemo/demo");
 		 

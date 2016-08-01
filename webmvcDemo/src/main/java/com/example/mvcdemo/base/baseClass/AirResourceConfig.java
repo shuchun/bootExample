@@ -1,4 +1,4 @@
-package com.example.mvcdemo.base.baseClass;
+﻿package com.example.mvcdemo.base.baseClass;
 
 
 
@@ -46,7 +46,7 @@ public class AirResourceConfig extends ResourceConfig {
     	property(ClientProperties.READ_TIMEOUT,60000);
     	
     	
-        packages("com.lesaas.magnus");
+        packages("com.example.mvcdemo");
         register(JacksonFeature.class);
         register(DemoJersey.class);
     }   
