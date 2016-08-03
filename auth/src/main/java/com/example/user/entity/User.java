@@ -1,6 +1,8 @@
 package com.example.user.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Date;
 
 /**
@@ -9,13 +11,17 @@ import java.util.Date;
  */
 @Entity
 public class User {
+
+    @Id
+    @GeneratedValue
     private Long id;                    //用户id
-    private String userName;            //用户名
-    private String userPwd;             //用户密码
-    private String userEmail;           //邮箱
-    private String status;              //状态：0-正常，1-停用，2-删除
-    private Date   createDate;          //创建时间
-    private Date   lastModityDate;      //最后修改时间
+    private String name;            //用户名
+    private String password;             //用户密码
+    private int age;
+    private String gender;           //性别
+    //private String status;              //状态：0-正常，1-停用，2-删除
+    //private Date   createDate;          //创建时间
+    //private Date   lastModityDate;      //最后修改时间
 
     public Long getId() {
         return id;
@@ -25,31 +31,39 @@ public class User {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getUserPwd() {
-        return userPwd;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserPwd(String userPwd) {
-        this.userPwd = userPwd;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public int getAge() {
+        return age;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setAge(int age) {
+        this.age = age;
     }
 
-    public String getStatus() {
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    /*public String getStatus() {
         return status;
     }
 
@@ -71,5 +85,5 @@ public class User {
 
     public void setLastModityDate(Date lastModityDate) {
         this.lastModityDate = lastModityDate;
-    }
+    }*/
 }

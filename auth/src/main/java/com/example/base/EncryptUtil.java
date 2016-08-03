@@ -666,7 +666,7 @@ public class EncryptUtil {
      * 测试方法
      * @throws Exception
      */
-    public static void main(String[] args) throws Exception {
+    //public static void main(String[] args) throws Exception {
    
     	//final String DSA="DSA";
     	//final String RSA="RSA";
@@ -709,6 +709,6 @@ public class EncryptUtil {
     	/*String s="1zh_CNfbc72acb8cd1471a98ac74e64e212555UREG21437718642251";
     	String aa=EncryptUtil.signByRSA("SHA1withRSA",s.toString(), PRIVATE_KEY_STR, false);
         System.out.println(aa);*/
-    }
+    //}
 
 }

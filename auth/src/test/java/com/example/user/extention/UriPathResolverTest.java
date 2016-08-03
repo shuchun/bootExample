@@ -1,11 +1,13 @@
 package com.example.user.extention;
 
+import com.example.base.EncryptUtil;
 import org.assertj.core.api.Assertions;
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
  * Created by IBM on 2016/8/2.
+ * 路径解析测试
  */
 public class UriPathResolverTest {
 
@@ -43,4 +45,5 @@ public class UriPathResolverTest {
         Assertions.assertThat(port).isNotEmpty();
         Assertions.assertThat(port).isEqualTo("9001");
     }
+
 }

@@ -20,9 +20,10 @@ import java.lang.reflect.Method;
 /**
  * Created by IBM on 2016/7/31.
  * redis 缓存配置
+ *
  */
-@Configuration
-@EnableCaching
+//@Configuration
+//@EnableCaching
 public class RedisCachConfig extends CachingConfigurerSupport {
 
     /**
@@ -40,6 +41,7 @@ public class RedisCachConfig extends CachingConfigurerSupport {
                 for (Object obj : params) {
                     sb.append(obj.toString());
                 }
+                System.out.println(sb.toString()+"-----------------------");
                 return sb.toString();
             }
         };
