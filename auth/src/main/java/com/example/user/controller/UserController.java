@@ -66,7 +66,7 @@ public class UserController {
      */
     @RequestMapping(value = "/auth/sign_in",method = RequestMethod.POST,produces = {"application/json"})
     public Object signIn(HttpServletRequest request, HttpServletResponse response,String name,String password,
-                       @CookieValue(value = "id")String id,@CookieValue(value = "secId")String secId){
+                       @CookieValue(value = "id",required = false)String id,@CookieValue(value = "secId",required = false)String secId){
         Map<String,Object > backInfo;
         //不安全
         /*if(ValidCookieInfo.valid(id,secId)&&){//cookie有效
@@ -113,21 +113,20 @@ public class UserController {
      */
     @RequestMapping(value = "/users/info",method = RequestMethod.GET,produces = {"application/json"})
     public Object getUserInfo(HttpServletRequest request, HttpServletResponse response,
-                                     @CookieValue(value = "id")String id, @CookieValue(value = "secId")String secId){
-        if(Tools.isNotEmpty(id)&&Tools.isNotEmpty(secId)){
-            if(ValidCookieInfo.valid(id,secId)){
-                Long parseId=Long.valueOf(id);
-                User user=userService.getUser(parseId);
+                                     @CookieValue(value = "id",required = true)String id, @CookieValue(value = "secId",required = true)String secId){
 
-                response=this.addCookieToResponse(user,request,response);
-                response.setStatus(200);
+        if(ValidCookieInfo.valid(id,secId)){
+            Long parseId=Long.valueOf(id);
+            User user=userService.getUser(parseId);
 
-                Map<String,Object> backJson=Tools.toMap(user,true);
-                backJson.remove("password");
+            response=this.addCookieToResponse(user,request,response);
+            response.setStatus(200);
 
-                return backJson;
+            Map<String,Object> backJson=Tools.toMap(user,true);
+            backJson.remove("password");
 
-            }
+            return backJson;
+
         }
 
         response.setStatus(400);
@@ -146,20 +145,18 @@ public class UserController {
      */
     @RequestMapping(value = "/users/info",method = RequestMethod.PUT,produces = {"application/json"})
     public Object updateUserInfo(HttpServletRequest request,HttpServletResponse response,int age,String gender,
-                               @CookieValue(value = "id")String id, @CookieValue(value = "secId")String secId){
-        if(Tools.isNotEmpty(id)&&Tools.isNotEmpty(secId)) {
-            if (ValidCookieInfo.valid(id, secId)) {
-                Long parseId=Long.valueOf(id);
-                User user=userService.updateUser(parseId,null,null,age,gender);
+                               @CookieValue(value = "id",required = true)String id, @CookieValue(value = "secId",required = true)String secId){
+        if (ValidCookieInfo.valid(id, secId)) {
+            Long parseId=Long.valueOf(id);
+            User user=userService.updateUser(parseId,null,null,age,gender);
 
-                response=this.addCookieToResponse(user,request,response);
-                response.setStatus(200);
+            response=this.addCookieToResponse(user,request,response);
+            response.setStatus(200);
 
-                Map<String,Object> backJson=Tools.toMap(user,true);
-                backJson.remove("password");
+            Map<String,Object> backJson=Tools.toMap(user,true);
+            backJson.remove("password");
 
-                return backJson;
-            }
+            return backJson;
         }
 
         response.setStatus(400);
