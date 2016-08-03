@@ -47,7 +47,7 @@
 				<groupId>com.spotify</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
 				<configuration>
-					<imageName>ysc/${project.name}</imageName>
+					<imageName>shuchun/${project.name}</imageName>
 					<dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
 					<skipDockerBuild>false</skipDockerBuild>
 					<resources>
