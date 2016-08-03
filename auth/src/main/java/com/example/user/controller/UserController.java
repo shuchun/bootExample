@@ -68,6 +68,7 @@ public class UserController {
     public Object signIn(HttpServletRequest request, HttpServletResponse response,String name,String password,
                        @CookieValue(value = "id")String id,@CookieValue(value = "secId")String secId){
         Map<String,Object > backInfo;
+        //不安全
         /*if(ValidCookieInfo.valid(id,secId)&&){//cookie有效
             User cookieUser=new User();
             cookieUser.setId(Long.valueOf(id));
@@ -129,7 +130,7 @@ public class UserController {
             }
         }
 
-        response.setStatus(401);
+        response.setStatus(400);
         return new ErrorResponse(ErrorCodeTable.UserNotLogin.getMsg());
     }
 
@@ -161,7 +162,7 @@ public class UserController {
             }
         }
 
-        response.setStatus(401);
+        response.setStatus(400);
         return new ErrorResponse(ErrorCodeTable.UserNotLogin.getMsg());
     }
 
