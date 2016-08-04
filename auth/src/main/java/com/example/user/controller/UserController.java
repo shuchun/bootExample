@@ -8,14 +8,13 @@ import com.example.user.extention.ErrorCodeTable;
 import com.example.user.extention.ValidCookieInfo;
 import com.example.user.extention.authConfig;
 import com.example.user.service.UserService;
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +26,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 public class UserController {
-
+    private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private UserService userService;
 
@@ -40,18 +39,31 @@ public class UserController {
      * @return              用户信息/错误信息
      */
     @RequestMapping(value = "/auth/sign_up",method = RequestMethod.POST,produces = {"application/json"})
-    public Object signUp(HttpServletRequest request, HttpServletResponse response,String name,String password){
+    public Object signUp(HttpServletRequest request, HttpServletResponse response, String name, String password){
         boolean nameExists=userService.userNameExists(name);
         if(nameExists){
              response.setStatus(400);
             return new ErrorResponse(ErrorCodeTable.UserNameAlreadyEXists.getMsg());
         }
-        User user=userService.addUser(name,password);
+        User user=null;
+        try {
+            user = userService.addUser(name, password);
+        }catch (Exception e){
+            LOG.error(ErrorCodeTable.ServerException.getMsgCN());
+            e.printStackTrace();
+        }
 
-        response=this.addCookieToResponse(user,request,response);
+        if(Tools.isNotEmpty(user)){
+            response=this.addCookieToResponse(user,request,response);
+            response.setStatus(200);
 
-        Map<String,Object> backJson=this.decoratorBackJson(user);
-        return backJson;
+            Map<String,Object> backJson=this.decoratorBackJson(user);
+            return backJson;
+        }
+
+        response.setStatus(500);
+        return new ErrorResponse(ErrorCodeTable.ServerException.getMsg());
+
     }
 
     /**
@@ -85,7 +97,12 @@ public class UserController {
         boolean nameExists=userService.userNameExists(name);
         if(nameExists) {//用户名存在
 
-            User user=userService.getUser(name,password);
+            User user=null;
+            try{
+                user=userService.getUser(name,password);
+            }catch (Exception e){
+                LOG.info(ErrorCodeTable.AuthFailure.getMsgCN());
+            }
             if(Tools.isNotEmpty(user)){//有效
 
                 response=this.addCookieToResponse(user,request,response);
@@ -152,12 +169,20 @@ public class UserController {
         if(Tools.isNotEmpty(id)&&Tools.isNotEmpty(secId)){
             if (ValidCookieInfo.valid(id, secId)) {
                 Long parseId=Long.valueOf(id);
-                User oldUser=userService.getUser(parseId);//原来的用户信息
+                User oldUser=null;
+                try{
+                    oldUser= userService.getUser(parseId);//原来的用户信息
+                }catch (Exception e){
+                    e.printStackTrace();
+                    LOG.info(ErrorCodeTable.UserNotLogin.getMsgCN());
+                }
                 if(!Tools.isNotEmpty(oldUser)){
                     response.setStatus(400);
                     return new ErrorResponse(ErrorCodeTable.UserNotLogin.getMsg());
                 }
                 User user=userService.updateUser(parseId,oldUser.getName(),null,age,gender);
+
+                //User user=userService.updateUser(parseId,null,null,age,gender);
 
                 response=this.addCookieToResponse(user,request,response);
                 response.setStatus(200);
