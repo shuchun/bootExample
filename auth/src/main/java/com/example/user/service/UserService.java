@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +33,7 @@ public class UserService {
      * @param userPwd       用户密码
      * @return              返回新用户
      */
-    //@Cacheable(value="logincache",keyGenerator = "redisCachKeyGenerator")
+    @Cacheable(value = "user",key = "#root.targetClass+#userName")
     public User getUser(String userName,String userPwd){
         User user;
         user = userRepository.getUserByNameAndPassword(userName,userPwd);
@@ -45,6 +46,7 @@ public class UserService {
      * @param id    用户id
      * @return      返回用户
      */
+    @Cacheable(value="user",key="#root.targetClass+new String(#id)")
     public User getUser(Long id){
         User user=userRepository.findUserById(id);
         LOG.info("getUser:"+user.getId());
@@ -59,6 +61,9 @@ public class UserService {
      * @param gender        性别
      * @return              用户
      */
+    @Caching(evict = {@CacheEvict(value="user",key = "#root.targetClass+new String(#id)",condition = "#id>0"),
+                      @CacheEvict(value="user",key = "#root.targetClass+#userName",condition = "#userName != null")
+    })
     public User updateUserByIdAndName(final Long id, final String userName, int age, String gender){
 
         User user=userRepository.findUserById(id);
@@ -80,6 +85,9 @@ public class UserService {
      * @param gender        性别
      * @return              用户
      */
+    @Caching(evict = {@CacheEvict(value="user",key = "#root.targetClass+new String(#id)",condition = "#id>0"),
+            @CacheEvict(value="user",key = "#root.targetClass+#userName",condition = "#userName != null")
+    })
     public User updateUser(final Long id,String userName,String userPwd,int age,String gender){
         User user=userRepository.findUserById(id);
         if(Tools.isNotEmpty(user)){
@@ -121,6 +129,7 @@ public class UserService {
      * @param userName      用户名
      * @param userPwd       用户密码
      */
+    @CachePut(value = "user",key = "#root.targetClass+#userName")
     public User addUser(String userName, String userPwd){
         Long count=userRepository.count();
         User user=new User();
