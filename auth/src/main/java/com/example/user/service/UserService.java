@@ -3,6 +3,8 @@ package com.example.user.service;
 import com.example.base.Tools;
 import com.example.user.dao.UserRepository;
 import com.example.user.entity.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -20,6 +22,7 @@ import java.util.List;
 @Transactional
 public class UserService {
 
+    private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
     @Autowired
     private UserRepository userRepository;
 
@@ -33,7 +36,7 @@ public class UserService {
     public User getUser(String userName,String userPwd){
         User user;
         user = userRepository.getUserByNameAndPassword(userName,userPwd);
-
+        LOG.info("getUser:"+user.getId());
         return user;
     }
 
@@ -44,6 +47,7 @@ public class UserService {
      */
     public User getUser(Long id){
         User user=userRepository.findUserById(id);
+        LOG.info("getUser:"+user.getId());
         return user;
     }
 
@@ -61,7 +65,6 @@ public class UserService {
         if(Tools.isNotEmpty(user)&&user.getName().equals(userName)){
             user.setAge(age);
             user.setGender(gender);
-
             return this.updateUser(user);
         }
 
@@ -107,6 +110,7 @@ public class UserService {
     private User updateUser(User user){
         User modUser=null;
         if(Tools.isNotEmpty(user)){
+            LOG.info("updateUser:"+user.getId());
             modUser = userRepository.saveAndFlush(user);
         }
         return modUser;
@@ -124,7 +128,7 @@ public class UserService {
         user.setName(userName);
         user.setPassword(userPwd);
         //user.setCreateDate(new Date());
-
+        LOG.info("addUser:"+user.getId()+","+userName);
         return userRepository.saveAndFlush(user);
     }
 
