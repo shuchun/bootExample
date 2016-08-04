@@ -113,21 +113,24 @@ public class UserController {
      */
     @RequestMapping(value = "/users/info",method = RequestMethod.GET,produces = {"application/json"})
     public Object getUserInfo(HttpServletRequest request, HttpServletResponse response,
-                                     @CookieValue(value = "id",required = true)String id, @CookieValue(value = "secId",required = true)String secId){
+                                     @CookieValue(value = "id",required = false)String id, @CookieValue(value = "secId",required = false)String secId){
 
-        if(ValidCookieInfo.valid(id,secId)){
-            Long parseId=Long.valueOf(id);
-            User user=userService.getUser(parseId);
+        if(Tools.isNotEmpty(id)&&Tools.isNotEmpty(secId)){
+            if(ValidCookieInfo.valid(id,secId)){
+                Long parseId=Long.valueOf(id);
+                User user=userService.getUser(parseId);
 
-            response=this.addCookieToResponse(user,request,response);
-            response.setStatus(200);
+                response=this.addCookieToResponse(user,request,response);
+                response.setStatus(200);
 
-            Map<String,Object> backJson=Tools.toMap(user,true);
-            backJson.remove("password");
+                Map<String,Object> backJson=Tools.toMap(user,true);
+                backJson.remove("password");
 
-            return backJson;
+                return backJson;
 
+            }
         }
+
 
         response.setStatus(400);
         return new ErrorResponse(ErrorCodeTable.UserNotLogin.getMsg());
@@ -145,19 +148,22 @@ public class UserController {
      */
     @RequestMapping(value = "/users/info",method = RequestMethod.PUT,produces = {"application/json"})
     public Object updateUserInfo(HttpServletRequest request,HttpServletResponse response,int age,String gender,
-                               @CookieValue(value = "id",required = true)String id, @CookieValue(value = "secId",required = true)String secId){
-        if (ValidCookieInfo.valid(id, secId)) {
-            Long parseId=Long.valueOf(id);
-            User user=userService.updateUser(parseId,null,null,age,gender);
+                               @CookieValue(value = "id",required = false)String id, @CookieValue(value = "secId",required = false)String secId){
+        if(Tools.isNotEmpty(id)&&Tools.isNotEmpty(secId)){
+            if (ValidCookieInfo.valid(id, secId)) {
+                Long parseId=Long.valueOf(id);
+                User user=userService.updateUser(parseId,null,null,age,gender);
 
-            response=this.addCookieToResponse(user,request,response);
-            response.setStatus(200);
+                response=this.addCookieToResponse(user,request,response);
+                response.setStatus(200);
 
-            Map<String,Object> backJson=Tools.toMap(user,true);
-            backJson.remove("password");
+                Map<String,Object> backJson=Tools.toMap(user,true);
+                backJson.remove("password");
 
-            return backJson;
+                return backJson;
+            }
         }
+
 
         response.setStatus(400);
         return new ErrorResponse(ErrorCodeTable.UserNotLogin.getMsg());
