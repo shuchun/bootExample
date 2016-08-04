@@ -1,7 +1,5 @@
 package com.example.user.extention;
 
-import javax.ws.rs.core.UriInfo;
-
 /**
  * Created by IBM on 2016/8/2.
  * uri路径解析器
@@ -19,16 +17,6 @@ public class UriPathResolver {
         domain=domain.substring(0,domain.indexOf("/"));
 
         return domain;
-    }
-
-    /**
-     *  从uri中获取domain
-     * @param uriInfo   路径
-     * @return          domain
-     */
-    public static String getDomain(UriInfo uriInfo){
-        String domain=uriInfo.getBaseUri().toString();
-        return UriPathResolver.getDomain(domain);
     }
 
     /**

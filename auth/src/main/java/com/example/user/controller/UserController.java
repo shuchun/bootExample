@@ -152,7 +152,12 @@ public class UserController {
         if(Tools.isNotEmpty(id)&&Tools.isNotEmpty(secId)){
             if (ValidCookieInfo.valid(id, secId)) {
                 Long parseId=Long.valueOf(id);
-                User user=userService.updateUser(parseId,null,null,age,gender);
+                User oldUser=userService.getUser(parseId);//原来的用户信息
+                if(!Tools.isNotEmpty(oldUser)){
+                    response.setStatus(400);
+                    return new ErrorResponse(ErrorCodeTable.UserNotLogin.getMsg());
+                }
+                User user=userService.updateUser(parseId,oldUser.getName(),null,age,gender);
 
                 response=this.addCookieToResponse(user,request,response);
                 response.setStatus(200);
