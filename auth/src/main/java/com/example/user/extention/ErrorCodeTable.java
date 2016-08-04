@@ -9,7 +9,8 @@ public enum  ErrorCodeTable {
     UserNameAlreadyEXists("0001","UserNameAlreadyEXists","请求注册的用户名已经被使用"),
     AuthFailure("0002","AuthFailure","用户名或密码错误"),
     UserNotEXists("0003","UserNotEXists","用户不存在"),
-    UserNotLogin("0004","UserNotLogin","用户未登录")
+    UserNotLogin("0004","UserNotLogin","用户未登录"),
+    ServerException("0005","ServerException","内部服务异常")
     ;
 
     private String code;
