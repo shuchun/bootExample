@@ -32,7 +32,6 @@ public class UserService {
      * @param userPwd       用户密码
      * @return              返回新用户
      */
-    //@Cacheable(value="logincache",keyGenerator = "redisCachKeyGenerator")
     public User getUser(String userName,String userPwd){
         User user;
         user = userRepository.getUserByNameAndPassword(userName,userPwd);
