@@ -25,9 +25,14 @@ public class UserServiceTest {
     @Autowired
     private UserService userService;
 
+<<<<<<< HEAD
     private String name="testName";
     private String password="testPwd";
     private Long id=1L;
+=======
+    private String name="serviceTestName";
+    private String password="serviceTestPwd";
+>>>>>>> master
 
     @Before
     public void setUp(){
@@ -46,7 +51,11 @@ public class UserServiceTest {
     public void addUserTest(){
         User user=userService.addUser(name,password);
         Assertions.assertThat(user).isNotNull().hasFieldOrPropertyWithValue("name",name)
+<<<<<<< HEAD
                 .hasFieldOrPropertyWithValue("id",id).hasFieldOrProperty("age");
+=======
+                .hasFieldOrProperty("age");
+>>>>>>> master
     }
 
     /**
@@ -58,7 +67,11 @@ public class UserServiceTest {
         User user=userService.getUser(name,password);//查询用户
 
         Assertions.assertThat(user).isNotNull().hasFieldOrPropertyWithValue("name",name)
+<<<<<<< HEAD
                 .hasFieldOrPropertyWithValue("id",id).hasFieldOrProperty("age");//判断
+=======
+                .hasFieldOrProperty("id").hasFieldOrProperty("age");//判断
+>>>>>>> master
     }
 
     /**
@@ -66,10 +79,21 @@ public class UserServiceTest {
      */
     @Test
     public void getUserById(){
+<<<<<<< HEAD
         User user=userService.getUser(id);
 
         Assertions.assertThat(user).isNotNull().hasFieldOrPropertyWithValue("name",name)
                 .hasFieldOrPropertyWithValue("id",id).hasFieldOrProperty("age");
+=======
+        User user1=userService.getUser(name,password);//查询用户
+        Assertions.assertThat(user1).isNotNull();
+        Long id=user1.getId();
+        User user2=userService.getUser(id);
+
+        Assertions.assertThat(user2).isNotNull().hasFieldOrPropertyWithValue("name",name)
+                .hasFieldOrPropertyWithValue("id",id).hasFieldOrProperty("age");
+        Assertions.assertThat(user1).isEqualToComparingFieldByField(user2);
+>>>>>>> master
 
     }
 
@@ -99,10 +123,20 @@ public class UserServiceTest {
     public void updateUserByIdAndNameTest(){
         int age=30;
         String gender="M";
+<<<<<<< HEAD
         User user=userService.updateUserByIdAndName(id,name,age,gender);
 
         Assertions.assertThat(user).isNotNull().hasFieldOrPropertyWithValue("age",age)
                 .hasFieldOrPropertyWithValue("gender",gender).hasFieldOrPropertyWithValue("id",id);
+=======
+        User user1=userService.getUser(name,password);//查询用户
+        Assertions.assertThat(user1).isNotNull();
+
+        User user=userService.updateUserByIdAndName(user1.getId(),name,age,gender);
+
+        Assertions.assertThat(user).isNotNull().hasFieldOrPropertyWithValue("age",age)
+                .hasFieldOrPropertyWithValue("gender",gender).hasNoNullFieldsOrProperties();
+>>>>>>> master
     }
 
     /**
@@ -113,8 +147,15 @@ public class UserServiceTest {
         String newName="otherName";
         int age=80;
         String gender="X";
+<<<<<<< HEAD
 
         User user=userService.updateUserByIdAndName(id,newName,age,gender);
+=======
+        User user1=userService.getUser(name,password);//查询用户
+        Assertions.assertThat(user1).isNotNull();
+
+        User user=userService.updateUserByIdAndName(user1.getId(),newName,age,gender);
+>>>>>>> master
 
         Assertions.assertThat(user).isNotNull();
         Assertions.assertThat(user.getAge()).isNotEqualTo(age);
@@ -129,8 +170,15 @@ public class UserServiceTest {
         int age=50;
         String gender="F";
         String pwd="newPwd";
+<<<<<<< HEAD
 
         User user=userService.updateUser(id,null,pwd,age,gender);
+=======
+        User user1=userService.getUser(name,password);//查询用户
+        Assertions.assertThat(user1).isNotNull();
+
+        User user=userService.updateUser(user1.getId(),null,pwd,age,gender);
+>>>>>>> master
 
         Assertions.assertThat(user).isNotNull().hasFieldOrPropertyWithValue("name",name)
                 .hasFieldOrPropertyWithValue("password",pwd).hasFieldOrPropertyWithValue("age",age)

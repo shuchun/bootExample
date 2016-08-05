@@ -86,4 +86,14 @@ public class User {
     public void setLastModityDate(Date lastModityDate) {
         this.lastModityDate = lastModityDate;
     }*/
+
+    public User() {
+    }
+
+    public User(String name, String password, int age, String gender) {
+        this.name = name;
+        this.password = password;
+        this.age = age;
+        this.gender = gender;
+    }
 }
