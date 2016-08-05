@@ -1,6 +1,8 @@
 package com.example.user.extention;
 
+import com.example.base.EncryptUtil;
 import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
