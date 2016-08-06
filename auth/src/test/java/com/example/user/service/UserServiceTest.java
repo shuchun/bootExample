@@ -1,7 +1,6 @@
 package com.example.user.service;
 
 import com.example.user.entity.User;
-import jdk.Exported;
 import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Before;
