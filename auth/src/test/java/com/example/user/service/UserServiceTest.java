@@ -11,6 +11,7 @@ import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by IBM on 2016/8/5.
@@ -30,6 +31,10 @@ public class UserServiceTest {
     @Before
     public void setUp(){
         Assertions.assertThat(userService).isNotNull();
+        if(!userService.userNameExists(name)){
+            userService.addUser(name,password);//保存一条测试数据
+        }
+
     }
 
     @After
@@ -42,8 +47,9 @@ public class UserServiceTest {
      */
     @Test
     public void addUserTest(){
-        User user=userService.addUser(name,password);
-        Assertions.assertThat(user).isNotNull().hasFieldOrPropertyWithValue("name",name)
+        String addName="addTest";
+        User user=userService.addUser(addName,"addPwd");
+        Assertions.assertThat(user).isNotNull().hasFieldOrPropertyWithValue("name",addName)
                 .hasFieldOrProperty("age");
     }
 
