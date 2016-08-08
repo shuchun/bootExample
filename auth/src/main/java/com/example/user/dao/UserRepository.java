@@ -36,4 +36,11 @@ public interface UserRepository extends JpaRepository<User,Long> {
      */
     User findUserById(Long id);
 
+    /**
+     * 用户名模糊查询并且忽略大小写
+     * @param name
+     * @return
+     */
+    List<User> findByNameStartingWithIgnoreCase(String name,Sort sort);
+
 }

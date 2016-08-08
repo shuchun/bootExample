@@ -155,4 +155,15 @@ public class UserRepositoryTest {
 
     }
 
+    /**
+     * like查询并且排序测试用例
+     */
+    @Test
+    public void likeQueryTest(){
+        List<User> users=userRepository.findByNameStartingWithIgnoreCase(name,new Sort(Sort.Direction.DESC,"age"));
+
+        Assertions.assertThat(users).isNotNull();
+        Assertions.assertThat(users.get(users.size()-1).getName()).isEqualTo(name+0);
+    }
+
 }
