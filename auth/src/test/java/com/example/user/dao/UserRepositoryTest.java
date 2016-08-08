@@ -2,10 +2,7 @@ package com.example.user.dao;
 
 import com.example.user.entity.User;
 import org.assertj.core.api.Assertions;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +28,13 @@ public class UserRepositoryTest {
     private int age=10;
     private String gender="M";
 
+
     @Before
     public void setUp(){
         Assertions.assertThat(userRepository).isNotNull();
+        if(userRepository.count()==0){
+            userRepository.save(new User(name,password,age,gender));//保存一条验证数据
+        }
 
     }
 
@@ -47,7 +48,8 @@ public class UserRepositoryTest {
      */
     @Test
     public void aSaveTest(){
-        User user= userRepository.save(new User(name,password,age,gender));
+
+        User user= userRepository.save(new User("testSave","savePwd",10,"M"));
 
         Assertions.assertThat(user).isNotNull()
                 .hasNoNullFieldsOrProperties().hasFieldOrProperty("id");
@@ -67,9 +69,10 @@ public class UserRepositoryTest {
     /**
      * count 测试
      */
+    @Test
     public void countTest(){
         Long count=userRepository.count();
-
+        System.out.println("count:"+count);
         Assertions.assertThat(count).isNotNull();
     }
 
