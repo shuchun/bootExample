@@ -135,15 +135,26 @@ public class UserController {
         if(Tools.isNotEmpty(id)&&Tools.isNotEmpty(secId)){
             if(ValidCookieInfo.valid(id,secId)){
                 Long parseId=Long.valueOf(id);
-                User user=userService.getUser(parseId);
+                try {
+                    User user = userService.getUser(parseId);
 
-                response=this.addCookieToResponse(user,request,response);
-                response.setStatus(200);
+                    if(Tools.isNotEmpty(user)){
+                        response = this.addCookieToResponse(user, request, response);
+                        response.setStatus(200);
 
-                Map<String,Object> backJson=Tools.toMap(user,true);
-                backJson.remove("password");
+                        Map<String, Object> backJson = Tools.toMap(user, true);
+                        backJson.remove("password");
 
-                return backJson;
+                        return backJson;
+                    }else{//没有取到用户信息
+                        response.setStatus(400);
+                        return new ErrorResponse(ErrorCodeTable.UserNotExists.getMsg());
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                    LOG.error(ErrorCodeTable.ServerException.getMsgCN());
+                }
 
             }
         }
@@ -199,6 +210,40 @@ public class UserController {
         return new ErrorResponse(ErrorCodeTable.UserNotLogin.getMsg());
     }
 
+    /**
+     * 登出
+     * @param request       请求
+     * @param response      响应
+     * @param id            用户id
+     * @param secId         加密id
+     * @return              返回信息
+     */
+    @RequestMapping(value="/auth/sign_out",method = RequestMethod.DELETE,produces = {"application/json"})
+    public Object signOut(HttpServletRequest request,HttpServletResponse response,
+                        @CookieValue(value = "id",required = false)String id, @CookieValue(value = "secId",required = false)String secId){
+        if(Tools.isNotEmpty(id)&&Tools.isNotEmpty(secId)) {
+            if (ValidCookieInfo.valid(id, secId)) {
+                Cookie[] cookies=request.getCookies();
+                for(int i=0;i<cookies.length;i++){
+                    Cookie cookie=cookies[i];
+
+                    if(cookie.getName().equalsIgnoreCase("id")||cookie.getName().equalsIgnoreCase("secId")){
+                        cookie.setValue("");
+                        cookie.setMaxAge(0);
+                        cookie.setDomain(request.getContextPath());//域
+                        cookie.setPath("/");
+
+                        response.addCookie(cookie);
+                    }
+                }
+                response.setStatus(200);
+            }
+        }
+        Map<String,Object> backJson=new HashMap<>();
+        backJson.put("status","SignOutSuccess");
+        return backJson;
+    }
+
 
 
     /**
@@ -241,4 +286,5 @@ public class UserController {
 
         return response;
     }
+
 }

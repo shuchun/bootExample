@@ -43,7 +43,7 @@ public class UserService {
      */
     public User getUser(Long id){
         User user=userRepository.findUserById(id);
-        LOG.info("getUser:"+user.getId());
+        LOG.info("getUser:"+(Tools.isNotEmpty(user)?user.getId():""));
         return user;
     }
 

@@ -85,9 +85,11 @@ public class UserServiceTest {
      * 获取不存在的用户测试用例
      *
      */
-    @Test(expected = NullPointerException.class)//判断会抛出的异常
+    @Test//(expected = NullPointerException.class)//判断会抛出的异常
     public void getNotExistsUserErrorTest(){
-        userService.getUser(-1L);
+        User user=userService.getUser(-1L);
+
+        Assertions.assertThat(user).isNull();
     }
 
     /**
