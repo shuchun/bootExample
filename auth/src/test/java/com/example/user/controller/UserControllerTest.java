@@ -94,7 +94,7 @@ public class UserControllerTest {
                 .andReturn();
 
         Assertions.assertThat(nameExistsResult.getResponse().getContentAsString())
-                .isNotEmpty().contains("error").contains(ErrorCodeTable.UserNameAlreadyEXists.getMsg());
+                .isNotEmpty().contains("error").contains(ErrorCodeTable.UserNameAlreadyExists.getMsg());
     }
 
     /**
@@ -126,7 +126,7 @@ public class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.status().is4xxClientError())
                 .andReturn();
         Assertions.assertThat(userNotResult.getResponse().getContentAsString())
-                .isNotEmpty().contains("error").contains(ErrorCodeTable.UserNotEXists.getMsg());
+                .isNotEmpty().contains("error").contains(ErrorCodeTable.UserNotExists.getMsg());
     }
 
     /**

@@ -43,7 +43,7 @@ public class UserController {
         boolean nameExists=userService.userNameExists(name);
         if(nameExists){
              response.setStatus(400);
-            return new ErrorResponse(ErrorCodeTable.UserNameAlreadyEXists.getMsg());
+            return new ErrorResponse(ErrorCodeTable.UserNameAlreadyExists.getMsg());
         }
         User user=null;
         try {
@@ -117,7 +117,7 @@ public class UserController {
         }
         //用户不存在
         response.setStatus(400);
-        return new ErrorResponse(ErrorCodeTable.UserNotEXists.getMsg());
+        return new ErrorResponse(ErrorCodeTable.UserNotExists.getMsg());
     }
 
     /**
