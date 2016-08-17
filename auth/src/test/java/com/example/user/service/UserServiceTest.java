@@ -1,7 +1,6 @@
 package com.example.user.service;
 
 import com.example.user.entity.User;
-import jdk.Exported;
 import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Before;
@@ -12,6 +11,7 @@ import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by IBM on 2016/8/5.
@@ -25,18 +25,16 @@ public class UserServiceTest {
     @Autowired
     private UserService userService;
 
-<<<<<<< HEAD
-    private String name="testName";
-    private String password="testPwd";
-    private Long id=1L;
-=======
     private String name="serviceTestName";
     private String password="serviceTestPwd";
->>>>>>> master
 
     @Before
     public void setUp(){
         Assertions.assertThat(userService).isNotNull();
+        if(!userService.userNameExists(name)){
+            userService.addUser(name,password);//保存一条测试数据
+        }
+
     }
 
     @After
@@ -49,13 +47,11 @@ public class UserServiceTest {
      */
     @Test
     public void addUserTest(){
-        User user=userService.addUser(name,password);
-        Assertions.assertThat(user).isNotNull().hasFieldOrPropertyWithValue("name",name)
-<<<<<<< HEAD
-                .hasFieldOrPropertyWithValue("id",id).hasFieldOrProperty("age");
-=======
+
+        String addName="addTest";
+        User user=userService.addUser(addName,"addPwd");
+        Assertions.assertThat(user).isNotNull().hasFieldOrPropertyWithValue("name",addName)
                 .hasFieldOrProperty("age");
->>>>>>> master
     }
 
     /**
@@ -67,11 +63,7 @@ public class UserServiceTest {
         User user=userService.getUser(name,password);//查询用户
 
         Assertions.assertThat(user).isNotNull().hasFieldOrPropertyWithValue("name",name)
-<<<<<<< HEAD
-                .hasFieldOrPropertyWithValue("id",id).hasFieldOrProperty("age");//判断
-=======
                 .hasFieldOrProperty("id").hasFieldOrProperty("age");//判断
->>>>>>> master
     }
 
     /**
@@ -79,12 +71,7 @@ public class UserServiceTest {
      */
     @Test
     public void getUserById(){
-<<<<<<< HEAD
-        User user=userService.getUser(id);
 
-        Assertions.assertThat(user).isNotNull().hasFieldOrPropertyWithValue("name",name)
-                .hasFieldOrPropertyWithValue("id",id).hasFieldOrProperty("age");
-=======
         User user1=userService.getUser(name,password);//查询用户
         Assertions.assertThat(user1).isNotNull();
         Long id=user1.getId();
@@ -93,7 +80,6 @@ public class UserServiceTest {
         Assertions.assertThat(user2).isNotNull().hasFieldOrPropertyWithValue("name",name)
                 .hasFieldOrPropertyWithValue("id",id).hasFieldOrProperty("age");
         Assertions.assertThat(user1).isEqualToComparingFieldByField(user2);
->>>>>>> master
 
     }
 
@@ -101,9 +87,11 @@ public class UserServiceTest {
      * 获取不存在的用户测试用例
      *
      */
-    @Test(expected = NullPointerException.class)//判断会抛出的异常
+    @Test//(expected = NullPointerException.class)//判断会抛出的异常
     public void getNotExistsUserErrorTest(){
-        userService.getUser(-1L);
+        User user=userService.getUser(-1L);
+
+        Assertions.assertThat(user).isNull();
     }
 
     /**
@@ -123,12 +111,6 @@ public class UserServiceTest {
     public void updateUserByIdAndNameTest(){
         int age=30;
         String gender="M";
-<<<<<<< HEAD
-        User user=userService.updateUserByIdAndName(id,name,age,gender);
-
-        Assertions.assertThat(user).isNotNull().hasFieldOrPropertyWithValue("age",age)
-                .hasFieldOrPropertyWithValue("gender",gender).hasFieldOrPropertyWithValue("id",id);
-=======
         User user1=userService.getUser(name,password);//查询用户
         Assertions.assertThat(user1).isNotNull();
 
@@ -136,7 +118,6 @@ public class UserServiceTest {
 
         Assertions.assertThat(user).isNotNull().hasFieldOrPropertyWithValue("age",age)
                 .hasFieldOrPropertyWithValue("gender",gender).hasNoNullFieldsOrProperties();
->>>>>>> master
     }
 
     /**
@@ -147,15 +128,11 @@ public class UserServiceTest {
         String newName="otherName";
         int age=80;
         String gender="X";
-<<<<<<< HEAD
 
-        User user=userService.updateUserByIdAndName(id,newName,age,gender);
-=======
         User user1=userService.getUser(name,password);//查询用户
         Assertions.assertThat(user1).isNotNull();
 
         User user=userService.updateUserByIdAndName(user1.getId(),newName,age,gender);
->>>>>>> master
 
         Assertions.assertThat(user).isNotNull();
         Assertions.assertThat(user.getAge()).isNotEqualTo(age);
@@ -170,15 +147,11 @@ public class UserServiceTest {
         int age=50;
         String gender="F";
         String pwd="newPwd";
-<<<<<<< HEAD
 
-        User user=userService.updateUser(id,null,pwd,age,gender);
-=======
         User user1=userService.getUser(name,password);//查询用户
         Assertions.assertThat(user1).isNotNull();
 
         User user=userService.updateUser(user1.getId(),null,pwd,age,gender);
->>>>>>> master
 
         Assertions.assertThat(user).isNotNull().hasFieldOrPropertyWithValue("name",name)
                 .hasFieldOrPropertyWithValue("password",pwd).hasFieldOrPropertyWithValue("age",age)

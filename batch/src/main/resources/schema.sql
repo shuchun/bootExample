@@ -1,0 +1,8 @@
+CREATE  TABLE  PERSON
+(
+id INTEGER   NOT  NULL PRIMARY KEY ,
+name VARCHAR (20),
+age INTEGER    ,
+nation VARCHAR (20),
+address VARCHAR (20)
+);

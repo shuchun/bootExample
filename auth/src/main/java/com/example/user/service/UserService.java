@@ -49,7 +49,7 @@ public class UserService {
     @Cacheable(value="user",key="#root.targetClass+new String(#id)")
     public User getUser(Long id){
         User user=userRepository.findUserById(id);
-        LOG.info("getUser:"+user.getId());
+        LOG.info("getUser:"+(Tools.isNotEmpty(user)?user.getId():""));
         return user;
     }
 
@@ -149,6 +149,17 @@ public class UserService {
     public boolean userNameExists(String userName){
         List<User> users=userRepository.findUserByName(userName);
         return Tools.isNotEmpty(users)&&users.size()>0;
+    }
+
+    /**
+     * 删除用户缓存信息
+     */
+    @Caching(evict = {@CacheEvict(value="user",key = "#root.targetClass+new String(#id)",condition = "#id>0"),
+            @CacheEvict(value="user",key = "#root.targetClass+#userName",condition = "#userName != null")
+    })
+    public void removeCache(Long id,String userName){
+        //删除缓存信息
+        LOG.info("用户："+id+","+userName+"登出");
     }
 
 

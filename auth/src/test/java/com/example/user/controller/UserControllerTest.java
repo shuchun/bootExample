@@ -94,7 +94,7 @@ public class UserControllerTest {
                 .andReturn();
 
         Assertions.assertThat(nameExistsResult.getResponse().getContentAsString())
-                .isNotEmpty().contains("error").contains(ErrorCodeTable.UserNameAlreadyEXists.getMsg());
+                .isNotEmpty().contains("error").contains(ErrorCodeTable.UserNameAlreadyExists.getMsg());
     }
 
     /**
@@ -126,7 +126,7 @@ public class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.status().is4xxClientError())
                 .andReturn();
         Assertions.assertThat(userNotResult.getResponse().getContentAsString())
-                .isNotEmpty().contains("error").contains(ErrorCodeTable.UserNotEXists.getMsg());
+                .isNotEmpty().contains("error").contains(ErrorCodeTable.UserNotExists.getMsg());
     }
 
     /**
@@ -227,6 +227,28 @@ public class UserControllerTest {
 
         Assertions.assertThat(newUserInfo.getResponse().getContentAsString())
                 .isNotEmpty().contains("50").contains(gender);
+    }
+
+    /**
+     * 登出测试用例
+     * @throws Exception
+     */
+    @Test
+    public void zSignOutTest() throws Exception {
+        String id="1";//用户id
+        String secId= EncryptUtil.encryptByDES(authConfig.getEncryKey(),id,null);//加密用户id
+
+        MvcResult signOut =mockMvc.perform(
+                MockMvcRequestBuilders.delete("/api/auth/sign_out",request,response)//get 请求
+                        .cookie(new Cookie("id",id))//设置请求中携带的cookie信息
+                        .cookie(new Cookie("secId",secId)))
+                .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
+                .andExpect(MockMvcResultMatchers.cookie().maxAge("id",0))//cookie不存在
+                .andExpect(MockMvcResultMatchers.cookie().maxAge("secId",0))
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
+                .andReturn();
+
+        Assertions.assertThat(signOut.getResponse().getContentAsString()).contains("status").contains("SignOutSuccess");
     }
 
 }

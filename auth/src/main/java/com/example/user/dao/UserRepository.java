@@ -1,6 +1,7 @@
 package com.example.user.dao;
 
 import com.example.user.entity.User;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -34,4 +35,12 @@ public interface UserRepository extends JpaRepository<User,Long> {
      * @return
      */
     User findUserById(Long id);
+
+    /**
+     * 用户名模糊查询并且忽略大小写
+     * @param name
+     * @return
+     */
+    List<User> findByNameStartingWithIgnoreCase(String name,Sort sort);
+
 }

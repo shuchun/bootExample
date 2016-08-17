@@ -4,7 +4,8 @@
 [用户认证：](https://github.com/shuchun/bootExample/tree/master/securityExample) pring-securityDemo   
 [分布式系统：](https://github.com/shuchun/bootExample/tree/master/cloudDemo) cloudDemo     
 [mvc示例：](https://github.com/shuchun/bootExample/tree/master/webmvcDemo) webMvcDemo      
-[用户系统示例：](https://github.com/shuchun/bootExample/tree/master/auth) auth    
+[用户系统示例：](https://github.com/shuchun/bootExample/tree/master/auth) auth     
+[批量数据处理：](https://github.com/shuchun/bootExample/tree/master/batch) batch     
 
 
 

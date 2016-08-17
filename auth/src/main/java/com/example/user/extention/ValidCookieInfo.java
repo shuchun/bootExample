@@ -17,6 +17,6 @@ public class ValidCookieInfo {
     public static boolean valid(String id, String secId){
         String signId= EncryptUtil.encryptByDES(authConfig.getEncryKey(),id,null);
         //String currentDomain=UriPathResolver.getDomain(uriInfo);//验证域有效
-        return signId.equals(secId);
+        return signId.equalsIgnoreCase(secId);
     }
 }
