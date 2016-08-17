@@ -6,5 +6,5 @@ package com.example.bootbatch.batch;
  */
 public class TriggerBatchConfig {
 
-    
+
 }
