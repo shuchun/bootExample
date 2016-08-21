@@ -31,8 +31,8 @@ import org.springframework.transaction.PlatformTransactionManager;
  * Created by IBM on 2016/8/7.
  * Batch配置(自动)
  */
-@Configuration
-@EnableBatchProcessing
+//@Configuration
+//@EnableBatchProcessing
 public class CsvBatchConfig {
 
     @Bean
