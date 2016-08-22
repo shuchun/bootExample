@@ -1,4 +1,4 @@
-# [Spring boot jms](https://github.com/shuchun/bootExample/tree/master/boot-jms)
+# [Spring boot jms(ActiveMQ)](https://github.com/shuchun/bootExample/tree/master/boot-jms)
 
 #### 说明:   
 **代码:**   
