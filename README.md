@@ -5,7 +5,8 @@
 [分布式系统：](https://github.com/shuchun/bootExample/tree/master/cloudDemo) cloudDemo     
 [mvc示例：](https://github.com/shuchun/bootExample/tree/master/webmvcDemo) webMvcDemo      
 [用户系统示例：](https://github.com/shuchun/bootExample/tree/master/auth) auth     
-[批量数据处理：](https://github.com/shuchun/bootExample/tree/master/batch) batch     
+[批量数据处理：](https://github.com/shuchun/bootExample/tree/master/batch) batch    
+[异步消息：](https://github.com/shuchun/bootExample/tree/master/boot-jms)boot-jms     
 
 
 
@@ -27,7 +28,7 @@ mvn package docker:build -DskipTests
 ## 扩展   
 
 技术：[spring-boot](http://projects.spring.io/spring-boot/)
-,[Docker](http://www.oschina.net/translate/tag/docker)    
+,[Docker](http://www.oschina.net/translate/tag/docker),[ActiveMQ](http://activemq.apache.org/)    
 参考书籍：《spring boot实战》   
 
 ----  
