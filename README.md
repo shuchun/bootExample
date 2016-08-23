@@ -7,6 +7,7 @@
 [用户系统示例：](https://github.com/shuchun/bootExample/tree/master/auth) auth     
 [批量数据处理：](https://github.com/shuchun/bootExample/tree/master/batch) batch    
 [异步消息：](https://github.com/shuchun/bootExample/tree/master/boot-jms)boot-jms     
+[系统集成：](https://github.com/shuchun/bootExample/tree/master/boot-integration)boot-integration      
 
 
 
