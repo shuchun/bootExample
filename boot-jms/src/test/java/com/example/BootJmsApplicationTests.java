@@ -10,6 +10,9 @@ import org.springframework.boot.test.rule.OutputCapture;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.ui.context.Theme;
 
+/**
+ * 异步消息测试类
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class BootJmsApplicationTests {
