@@ -29,7 +29,7 @@ mvn package docker:build -DskipTests
 ## 扩展   
 
 技术：[spring-boot](http://projects.spring.io/spring-boot/)
-,[Docker](http://www.oschina.net/translate/tag/docker),[ActiveMQ](http://activemq.apache.org/)    
+,[Docker](http://www.oschina.net/translate/tag/docker),[ActiveMQ](http://activemq.apache.org/),[RabbitMQ](http://www.rabbitmq.com/),[Redis](http://redis.io/),[MongoDB](https://www.mongodb.com/),[SiteMesh-3](http://wiki.sitemesh.org/wiki/display/sitemesh3/Configuring+SiteMesh+3)    
 参考书籍：《spring boot实战》   
 
 ----  
