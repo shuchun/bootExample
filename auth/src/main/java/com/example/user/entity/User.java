@@ -1,19 +1,17 @@
 package com.example.user.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.util.Date;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
  * Created by IBM on 2016/7/31.
  * 用户
  */
-@Entity
+@Document
 public class User {
 
     @Id
-    @GeneratedValue
     private Long id;                    //用户id
     private String name;            //用户名
     private String password;             //用户密码
@@ -91,6 +89,14 @@ public class User {
     }
 
     public User(String name, String password, int age, String gender) {
+        this.name = name;
+        this.password = password;
+        this.age = age;
+        this.gender = gender;
+    }
+
+    public User(Long id, String name, String password, int age, String gender) {
+        this.id = id;
         this.name = name;
         this.password = password;
         this.age = age;

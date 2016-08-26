@@ -33,7 +33,7 @@ public class UserService {
      * @param userPwd       用户密码
      * @return              返回新用户
      */
-    @Cacheable(value = "user",key = "#root.targetClass+#userName")
+    //@Cacheable(value = "user",key = "#root.targetClass+#userName")
     public User getUser(String userName,String userPwd){
         User user;
         user = userRepository.getUserByNameAndPassword(userName,userPwd);
@@ -119,7 +119,7 @@ public class UserService {
         User modUser=null;
         if(Tools.isNotEmpty(user)){
             LOG.info("updateUser:"+user.getId());
-            modUser = userRepository.saveAndFlush(user);
+            modUser = userRepository.save(user);
         }
         return modUser;
     }
@@ -138,7 +138,7 @@ public class UserService {
         user.setPassword(userPwd);
         //user.setCreateDate(new Date());
         LOG.info("addUser:"+user.getId()+","+userName);
-        return userRepository.saveAndFlush(user);
+        return userRepository.save(user);
     }
 
     /**

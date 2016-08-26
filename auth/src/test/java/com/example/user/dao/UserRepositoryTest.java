@@ -29,6 +29,7 @@ public class UserRepositoryTest {
 
     private String name="japTestName";
     private String password="jpaTestPwd";
+    private Long initId=10L;
     private int age=10;
     private String gender="M";
     private int  batchNum=5;
@@ -39,10 +40,11 @@ public class UserRepositoryTest {
         Assertions.assertThat(userRepository).isNotNull();
         Long count=userRepository.count();
         if(userRepository.findUserByName(name).size()==0){
-            userRepository.save(new User(name,password,age,gender));//保存一条验证数据
+            userRepository.save(new User(initId,name,password,age,gender));//保存一条验证数据
             if(count<=batchNum) {//添加批量数据用于分页查询，排序
                 for (int i = 0; i < batchNum; i++) {
-                    userRepository.save(new User(name+i,password+i,i,gender));
+                    System.out.println("i:"+i);
+                    userRepository.save(new User(Long.valueOf(i),name+i,password+i,i,gender));
                 }
             }
         }
@@ -60,7 +62,7 @@ public class UserRepositoryTest {
     @Test
     public void aSaveTest(){
 
-        User user= userRepository.save(new User("testSave","savePwd",10,"M"));
+        User user= userRepository.save(new User(initId+1,"testSave","savePwd",10,"M"));
 
         Assertions.assertThat(user).isNotNull()
                 .hasNoNullFieldsOrProperties().hasFieldOrProperty("id");
@@ -72,7 +74,7 @@ public class UserRepositoryTest {
     @Test
     public void getTest(){
         User user=userRepository.getUserByNameAndPassword(name,password);
-        user=userRepository.getOne(user.getId());
+        user=userRepository.findOne(user.getId());
 
         Assertions.assertThat(user).isNotNull().hasFieldOrPropertyWithValue("name",name);
     }
