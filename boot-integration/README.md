@@ -52,3 +52,16 @@ atom是一个xml文件，示例通过获取到的atom的catagories属性将不�
 	<version>4.3.0.RELEASE</version>
 </dependency>
 ```   
+
+**Spring Integration Java DSL **   
+Spring Integration 提供了IntegrationFlow来定义系统集成流程，而通过IntegrationFlows和IntegrationFlowBuilder来实现使用Fluent API来定义流程。   
+在Fluent API里，分别提供了下面的方法来映射Spring Integration的断点(EndPoint):    
+```
+transform()  -> Transformer
+filter()     -> Filter
+handle()     -> ServiceActivator、Adapter、Gateway
+split()      -> Splitter
+aggregator() -> Aggregator
+route()      -> Router
+bridge()     -> Bridge
+```
