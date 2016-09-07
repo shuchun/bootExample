@@ -2,6 +2,7 @@ package com.example.user.controller;
 
 import com.example.base.EncryptUtil;
 import com.example.base.Tools;
+import com.example.oauth.extention.Anonymous;
 import com.example.user.entity.ErrorResponse;
 import com.example.user.entity.User;
 import com.example.user.extention.ErrorCodeTable;
@@ -38,6 +39,7 @@ public class UserController {
      * @param password      用户密码
      * @return              用户信息/错误信息
      */
+    @Anonymous(value = "/api/auth/sign_up")
     @RequestMapping(value = "/auth/sign_up",method = RequestMethod.POST,produces = {"application/json"})
     public Object signUp(HttpServletRequest request, HttpServletResponse response, String name, String password){
         boolean nameExists=userService.userNameExists(name);
@@ -76,6 +78,7 @@ public class UserController {
      * @param secId         加密用户id，cookie记录
      * @return              用户/错误信息
      */
+    @Anonymous(value = "/api/auth/sign_in")
     @RequestMapping(value = "/auth/sign_in",method = RequestMethod.POST,produces = {"application/json"})
     public Object signIn(HttpServletRequest request, HttpServletResponse response,String name,String password,
                        @CookieValue(value = "id",required = false)String id,@CookieValue(value = "secId",required = false)String secId){
@@ -128,6 +131,7 @@ public class UserController {
      * @param secId     加密id
      * @return          用户信息/错误提示
      */
+    @Anonymous(value = "/api/users/info")
     @RequestMapping(value = "/users/info",method = RequestMethod.GET,produces = {"application/json"})
     public Object getUserInfo(HttpServletRequest request, HttpServletResponse response,
                                      @CookieValue(value = "id",required = false)String id, @CookieValue(value = "secId",required = false)String secId){
@@ -174,6 +178,7 @@ public class UserController {
      * @param secId         加密id
      * @return              修改后的用户信息/错误提示
      */
+    @Anonymous(value = "/api/users/info")
     @RequestMapping(value = "/users/info",method = RequestMethod.PUT,produces = {"application/json"})
     public Object updateUserInfo(HttpServletRequest request,HttpServletResponse response,int age,String gender,
                                @CookieValue(value = "id",required = false)String id, @CookieValue(value = "secId",required = false)String secId){
@@ -218,6 +223,7 @@ public class UserController {
      * @param secId         加密id
      * @return              返回信息
      */
+    @Anonymous(value = "/api/auth/sign_out")
     @RequestMapping(value="/auth/sign_out",method = RequestMethod.DELETE,produces = {"application/json"})
     public Object signOut(HttpServletRequest request,HttpServletResponse response,
                         @CookieValue(value = "id",required = false)String id, @CookieValue(value = "secId",required = false)String secId){

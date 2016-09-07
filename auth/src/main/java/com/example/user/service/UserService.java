@@ -16,7 +16,7 @@ import java.util.List;
  * user Service
  */
 @Service
-@Transactional
+@Transactional(rollbackFor = {Exception.class})
 public class UserService {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
@@ -29,6 +29,7 @@ public class UserService {
      * @param userPwd       用户密码
      * @return              返回新用户
      */
+    @Transactional(readOnly = true)
     public User getUser(String userName,String userPwd){
         User user;
         user = userRepository.getUserByNameAndPassword(userName,userPwd);
@@ -41,6 +42,7 @@ public class UserService {
      * @param id    用户id
      * @return      返回用户
      */
+    @Transactional(readOnly = true)
     public User getUser(Long id){
         User user=userRepository.findUserById(id);
         LOG.info("getUser:"+(Tools.isNotEmpty(user)?user.getId():""));
@@ -133,6 +135,7 @@ public class UserService {
      * @param userName      用户名
      * @return              是否存在
      */
+    @Transactional(readOnly = true)
     public boolean userNameExists(String userName){
         List<User> users=userRepository.findUserByName(userName);
         return Tools.isNotEmpty(users)&&users.size()>0;

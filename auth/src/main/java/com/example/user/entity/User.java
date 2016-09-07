@@ -19,9 +19,9 @@ public class User {
     private String password;             //用户密码
     private int age;
     private String gender;           //性别
-    //private String status;              //状态：0-正常，1-停用，2-删除
-    //private Date   createDate;          //创建时间
-    //private Date   lastModityDate;      //最后修改时间
+    private String status;              //状态：0-正常，1-停用，2-删除
+    private Date   createDate;          //创建时间
+    private Date   lastModityDate;      //最后修改时间
 
     public Long getId() {
         return id;
@@ -63,7 +63,7 @@ public class User {
         this.gender = gender;
     }
 
-    /*public String getStatus() {
+    public String getStatus() {
         return status;
     }
 
@@ -85,7 +85,7 @@ public class User {
 
     public void setLastModityDate(Date lastModityDate) {
         this.lastModityDate = lastModityDate;
-    }*/
+    }
 
     public User() {
     }
