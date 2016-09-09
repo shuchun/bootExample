@@ -1,7 +1,7 @@
 package com.example.user.dao;
 
-import com.example.resource.dao.AppMenuRepository;
-import com.example.resource.entity.AppMenu;
+import com.example.resource.dao.ResourceRepository;
+import com.example.resource.entity.Resource;
 import com.example.role.dao.RoleRepository;
 import com.example.role.entity.Role;
 import com.example.user.entity.User;
@@ -26,7 +26,7 @@ public class ResourceRepositoryTest {
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
-    private AppMenuRepository appMenuRepository;
+    private ResourceRepository appMenuRepository;
 
 
     @Test
@@ -37,7 +37,7 @@ public class ResourceRepositoryTest {
         user.setPassword("p100");
         user.setAge(20);
 
-        AppMenu menu=new AppMenu();
+        Resource menu=new Resource();
         menu.setId(102L);
         menu.setResourceName("index");
         menu.setResourceUrl("/aa/bb/test");
