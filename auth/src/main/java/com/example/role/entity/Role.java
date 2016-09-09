@@ -3,8 +3,7 @@ package com.example.role.entity;
 import com.example.user.entity.User;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by IBM on 2016/9/7.
@@ -14,9 +13,8 @@ import java.util.List;
 public class Role {
     @Id
     @GeneratedValue
+    //@Column(name = "role_id")
     private Long id;//id
-    @OneToMany(cascade = {CascadeType.REFRESH},fetch = FetchType.EAGER)
-    private List<User> users;//用户
     private String roleName;//角色名称
     private String roleDesc;//角色描述
     private String roleStatus;//角色状态
@@ -25,7 +23,8 @@ public class Role {
     private Date createTime;//创建时间
     private String updateUser;//最后修改人
     private Date updateTime;//最近修改时间
-
+    @OneToMany(mappedBy = "role",cascade = {CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE},fetch = FetchType.EAGER)
+    private Set<User> user= new HashSet<>();//用户
 
     public Long getId() {
         return id;
@@ -33,14 +32,6 @@ public class Role {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
     }
 
     public String getRoleName() {
@@ -105,5 +96,13 @@ public class Role {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Set<User> getUser() {
+        return user;
+    }
+
+    public void setUser(Set<User> user) {
+        this.user = user;
     }
 }

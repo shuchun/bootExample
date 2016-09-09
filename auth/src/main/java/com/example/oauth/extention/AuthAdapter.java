@@ -38,6 +38,8 @@ public class AuthAdapter extends HandlerInterceptorAdapter {
         }
 
         //TODO:需要认证,待完善
+        //查询权限缓存或者查询数据库获取权限
+        //或者通过判断方法enableXXX(string path)
         if(!auth.isAnonymousPath(request.getServletPath())){
             response.addHeader("method","get");
             response.sendRedirect("/oauth/noAuth");

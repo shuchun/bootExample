@@ -1,8 +1,8 @@
 package com.example.user.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.example.role.entity.Role;
+
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -14,6 +14,7 @@ public class User {
 
     @Id
     @GeneratedValue
+    //@Column(name = "user_id")
     private Long id;                    //用户id
     private String name;            //用户名
     private String password;             //用户密码
@@ -22,6 +23,13 @@ public class User {
     private String status;              //状态：0-正常，1-停用，2-删除
     private Date   createDate;          //创建时间
     private Date   lastModityDate;      //最后修改时间
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},optional = true)
+    @JoinTable(name="user_role",joinColumns = {
+            @JoinColumn(name="user_id",referencedColumnName = "id")
+    },inverseJoinColumns = {
+            @JoinColumn(name="role_id",referencedColumnName = "id")
+    })
+    private Role role;//角色
 
     public Long getId() {
         return id;
@@ -85,6 +93,14 @@ public class User {
 
     public void setLastModityDate(Date lastModityDate) {
         this.lastModityDate = lastModityDate;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public User() {
