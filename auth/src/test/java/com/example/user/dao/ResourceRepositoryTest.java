@@ -1,5 +1,7 @@
 package com.example.user.dao;
 
+import com.example.resource.dao.AppMenuRepository;
+import com.example.resource.entity.AppMenu;
 import com.example.role.dao.RoleRepository;
 import com.example.role.entity.Role;
 import com.example.user.entity.User;
@@ -23,6 +25,9 @@ public class ResourceRepositoryTest {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private AppMenuRepository appMenuRepository;
+
 
     @Test
     public void addTest(){
@@ -32,15 +37,21 @@ public class ResourceRepositoryTest {
         user.setPassword("p100");
         user.setAge(20);
 
+        AppMenu menu=new AppMenu();
+        menu.setId(102L);
+        menu.setResourceName("index");
+        menu.setResourceUrl("/aa/bb/test");
+        menu.setLevel(1L);
+
         Role role=new Role();
         role.setId(101L);
         role.setRoleName("admin");
         role.getUser().add(user);
-
-
+        role.getResources().add(menu);
 
         userRepository.saveAndFlush(user);
         roleRepository.saveAndFlush(role);
+        appMenuRepository.saveAndFlush(menu);
 
     }
 }
