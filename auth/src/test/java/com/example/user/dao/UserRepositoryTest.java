@@ -62,8 +62,7 @@ public class UserRepositoryTest {
 
         User user= userRepository.save(new User("testSave","savePwd",10,"M"));
 
-        Assertions.assertThat(user).isNotNull()
-                .hasNoNullFieldsOrProperties().hasFieldOrProperty("id");
+        Assertions.assertThat(user).isNotNull().hasFieldOrProperty("id");
     }
 
     /**
