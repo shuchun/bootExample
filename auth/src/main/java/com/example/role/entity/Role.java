@@ -1,5 +1,6 @@
 package com.example.role.entity;
 
+import com.example.resource.entity.AppMenu;
 import com.example.user.entity.User;
 
 import javax.persistence.*;
@@ -25,6 +26,8 @@ public class Role {
     private Date updateTime;//最近修改时间
     @OneToMany(mappedBy = "role",cascade = {CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE},fetch = FetchType.EAGER)
     private Set<User> user= new HashSet<>();//用户
+    @ManyToMany(mappedBy = "roles",cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
+    private Set<AppMenu> resources=new HashSet<>();
 
     public Long getId() {
         return id;
@@ -104,5 +107,13 @@ public class Role {
 
     public void setUser(Set<User> user) {
         this.user = user;
+    }
+
+    public Set<AppMenu> getResources() {
+        return resources;
+    }
+
+    public void setResources(Set<AppMenu> resources) {
+        this.resources = resources;
     }
 }

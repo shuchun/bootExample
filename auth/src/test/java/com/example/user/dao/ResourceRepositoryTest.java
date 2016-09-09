@@ -35,7 +35,7 @@ public class ResourceRepositoryTest {
         Role role=new Role();
         role.setId(101L);
         role.setRoleName("admin");
-        //role.getUser().add(user);
+        role.getUser().add(user);
 
 
 
