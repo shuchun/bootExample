@@ -41,6 +41,7 @@ public class RequestAuth {
 
         static {
             anonymousPaths =new HashSet<String>();
+            anonymousPaths.add("/error");//异常路径不做拦截
         }
     }
 }

@@ -1,8 +1,11 @@
 package com.example.resource.entity;
 
 import com.example.role.entity.Role;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,17 +21,19 @@ public class Resource {
     private String resourceUrl;//资源路径
     private String resourceType;//资源类型
     private String resourceId;//资源可见id
-    private Long resourceOrder;//排序号
+    private Integer resourceOrder;//排序号
     private String resourceStatus;//资源状态
     private Long parentId;//父资源id
-    private Long level;//资源层级
+    private Integer level;//资源层级
     private String needAuth;//是否需要认证
-    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch = FetchType.LAZY)
+   /* @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
     @JoinTable(name = "role_resource",joinColumns = {
             @JoinColumn(name = "resource_id",referencedColumnName = "id")
     },inverseJoinColumns = {
             @JoinColumn(name="role_id",referencedColumnName = "id")
-    })
+    })*/
+    //@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE,org.hibernate.annotations.CascadeType.PERSIST,org.hibernate.annotations.CascadeType.REFRESH})
+    @ManyToMany(mappedBy = "resources",cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
     private Set<Role> roles=new HashSet<>();
 
 
@@ -79,15 +84,6 @@ public class Resource {
     public void setResourceId(String resourceId) {
         this.resourceId = resourceId;
     }
-
-    public Long getResourceOrder() {
-        return resourceOrder;
-    }
-
-    public void setResourceOrder(Long resourceOrder) {
-        this.resourceOrder = resourceOrder;
-    }
-
     public String getResourceStatus() {
         return resourceStatus;
     }
@@ -104,11 +100,19 @@ public class Resource {
         this.parentId = parentId;
     }
 
-    public Long getLevel() {
+    public Integer getResourceOrder() {
+        return resourceOrder;
+    }
+
+    public void setResourceOrder(Integer resourceOrder) {
+        this.resourceOrder = resourceOrder;
+    }
+
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(Long level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
 

@@ -2,8 +2,11 @@ package com.example.role.entity;
 
 import com.example.resource.entity.Resource;
 import com.example.user.entity.User;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import java.util.*;
 
 /**
@@ -26,7 +29,14 @@ public class Role {
     private Date updateTime;//最近修改时间
     @OneToMany(mappedBy = "role",cascade = {CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE},fetch = FetchType.EAGER)
     private Set<User> user= new HashSet<>();//用户
-    @ManyToMany(mappedBy = "roles",cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
+    /*@ManyToMany(mappedBy = "roles",cascade = {CascadeType.ALL},fetch = FetchType.EAGER)*/
+    //@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE,org.hibernate.annotations.CascadeType.PERSIST,org.hibernate.annotations.CascadeType.MERGE})
+    @ManyToMany
+    @JoinTable(name = "role_resource",joinColumns = {
+            @JoinColumn(name = "role_id",referencedColumnName = "id")
+    },inverseJoinColumns = {
+            @JoinColumn(name = "resource_id",referencedColumnName = "id")
+    })
     private Set<Resource> resources=new HashSet<>();
 
     public Long getId() {

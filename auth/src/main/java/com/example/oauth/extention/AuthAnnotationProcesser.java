@@ -49,6 +49,7 @@ public class AuthAnnotationProcesser implements BeanPostProcessor {
                 if(method.isAnnotationPresent(Anonymous.class)){
                     Anonymous annotation = AnnotationUtils.findAnnotation(method, Anonymous.class);
                     auth.anonymous(annotation.value());//将忽略路径添加到认证中
+                    //System.out.println(annotation.value()+"--------------------noAuth");
                 }
 
             }
